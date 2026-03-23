@@ -1,0 +1,340 @@
+/* ===== 全局重置 & 忍者风格变量 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0b0e14; /* 暗部底色 */
+    font-family: 'Segoe UI', 'Helvetica Neue', '游ゴシック', 'Yu Gothic', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* 背景纹理：手里剑 + 万花筒写轮眼暗纹 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image:
+            radial-gradient(circle at 10% 20%, rgba(180, 40, 40, 0.08) 0px, transparent 4%),
+            radial-gradient(circle at 90% 70%, rgba(200, 70, 70, 0.08) 0px, transparent 6%),
+            repeating-linear-gradient(45deg, rgba(255, 100, 100, 0.02) 0px, rgba(255, 100, 100, 0.02) 2px, transparent 2px, transparent 8px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ===== 主卡片：晓组织风格云纹 + 破损感 ===== */
+.ninja-card {
+    max-width: 880px;
+    width: 100%;
+    background: #1f1f2b;
+    background-image: linear-gradient(145deg, #2a1e1e 0%, #1b1b2a 80%);
+    border: 3px solid #b43b3b;
+    border-radius: 32px 12px 32px 12px;
+    box-shadow: 0 30px 40px rgba(0, 0, 0, 0.8), 0 0 0 2px #5f2d2d inset, 0 0 15px #a13a3a;
+    padding: 30px 30px 35px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.2s ease;
+    color: #ece6d8;
+}
+
+/* 仿火影卷轴封口 */
+.ninja-card::after {
+    content: "";
+    position: absolute;
+    bottom: 18px; right: 30px;
+    width: 70px; height: 4px;
+    background: #b43b3b;
+    border-radius: 4px;
+    box-shadow: 0 0 8px #ff7b7b;
+    opacity: 0.7;
+}
+
+/* ===== 头像区 ===== */
+.avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    border-bottom: 2px dashed #b95353;
+    padding-bottom: 20px;
+}
+
+.avatar-frame {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid #c44f4f;
+    box-shadow: 0 0 0 4px #2d1f1f, 0 10px 25px #570000;
+    background: #000;
+    overflow: hidden;
+    position: relative;
+}
+
+.avatar-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.1) saturate(1.2);
+}
+
+/* 破面带土特征：写轮眼血丝背景 (只是装饰) */
+.avatar-frame::before {
+    content: "";
+    position: absolute;
+    top: -10px; left: -10px; width: 60px; height: 60px;
+    background: radial-gradient(circle, #ff5e5e20, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.name-tagline {
+    flex: 1;
+}
+
+.name-tagline h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #f0dbb4;
+    text-shadow: 3px 3px 0 #7a1f1f, 5px 5px 0 #00000080;
+    letter-spacing: 2px;
+    line-height: 1.1;
+}
+
+.name-tagline h1 small {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #bdaa8a;
+    text-shadow: none;
+    margin-left: 12px;
+}
+
+.signature {
+    font-size: 1.35rem;
+    font-style: italic;
+    background: #2f2323c0;
+    padding: 8px 20px;
+    border-radius: 40px;
+    display: inline-block;
+    border-left: 6px solid #bb4a4a;
+    color: #ffdba5;
+    box-shadow: 0 4px 0 #401010;
+    margin-top: 12px;
+    backdrop-filter: blur(2px);
+}
+
+/* ===== 信息格 (学号/专业/电话) ===== */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    background: #2b1e1eb0;
+    border: 1px solid #a15858;
+    padding: 18px 22px;
+    border-radius: 50px 10px 50px 10px;
+    margin-bottom: 28px;
+    backdrop-filter: blur(2px);
+    box-shadow: inset 0 0 15px #2f0f0f;
+}
+
+.info-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fadfad;
+    border-right: 1px solid #b35e5e;
+    padding-right: 15px;
+}
+
+.info-cell:last-child {
+    border-right: none;
+}
+
+.info-cell i {
+    color: #ff7b7b;
+    font-size: 1.4rem;
+    width: 30px;
+    text-align: center;
+}
+
+.phone-placeholder {
+    background: #401f1f;
+    padding: 2px 12px;
+    border-radius: 30px;
+    font-family: monospace;
+    letter-spacing: 1px;
+    color: #ffbaba;
+}
+
+/* ===== 自我介绍 (超150字) ===== */
+.bio-box {
+    background: #241a1ad9;
+    padding: 22px 28px;
+    border-radius: 40px 10px 40px 10px;
+    border: 1px solid #b95353;
+    margin-bottom: 30px;
+    backdrop-filter: blur(3px);
+    box-shadow: 0 8px 0 #2e1414;
+}
+
+.bio-box h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #e2b46b;
+    margin-bottom: 15px;
+    border-left: 12px solid #b43b3b;
+    padding-left: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.bio-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #f2e1c0;
+    text-shadow: 0 1px 2px black;
+}
+
+/* ===== 双标签组 ===== */
+.tags-war {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px 40px;
+    margin-bottom: 35px;
+}
+
+.tag-clan {
+    flex: 1 1 220px;
+}
+
+.tag-clan h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f3bc6c;
+    border-bottom: 3px solid #aa4242;
+    padding-bottom: 6px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tag-clan h3 i {
+    color: #ff5e5e;
+}
+
+.tag-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.tag {
+    background: #2c1818;
+    border: 2px solid #b96262;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #ffd89a;
+    box-shadow: 0 4px 0 #4f2020, 0 0 10px #ff5e5e60;
+    transition: 0.1s ease;
+    backdrop-filter: blur(4px);
+}
+
+.tag.special {
+    background: #4f2929;
+    border-color: #e69191;
+    color: white;
+    box-shadow: 0 4px 0 #941e1e, 0 0 15px red;
+}
+
+.tag:hover {
+    transform: scale(1.05) translateY(-2px);
+    background: #713737;
+    border-color: #ffa0a0;
+}
+
+/* ===== 外部链接 (晓组织风格) ===== */
+.akatsuki-link {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background: #2b1515e0;
+    border: 2px solid #b95353;
+    border-radius: 60px 10px 60px 10px;
+    padding: 16px 28px;
+    margin-bottom: 18px;
+}
+
+.akatsuki-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: #2a0f0f;
+    color: #ffcf9a;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.25rem;
+    padding: 12px 32px;
+    border-radius: 50px;
+    border: 2px solid #c44f4f;
+    box-shadow: 0 6px 0 #631e1e, 0 8px 20px black;
+    transition: 0.1s;
+}
+
+.akatsuki-link a:hover {
+    background: #4f2525;
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #631e1e, 0 12px 25px black;
+    color: white;
+}
+
+.link-desc {
+    color: #e6b172;
+    font-size: 1rem;
+    background: #2a1717;
+    padding: 6px 20px;
+    border-radius: 40px;
+    border: 1px solid #b95353;
+}
+
+/* ===== 火影底部纹章 ===== */
+.foot-note {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #a56b6b;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #813737;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    letter-spacing: 1px;
+}
+
+.foot-note i {
+    color: #b95353;
+}
+
+/* 响应式调整 */
+@media (max-width: 600px) {
+    .avatar-section { justify-content: center; text-align: center; }
+    .name-tagline h1 { font-size: 2.2rem; }
+    .info-grid { grid-template-columns: 1fr; }
+    .info-cell { border-right: none; border-bottom: 1px solid #b95353; padding-bottom: 10px; }
+}
